@@ -136,6 +136,9 @@ python -m ensurepip --upgrade
 # Установка виртуального окружения
 python -m venv venv
 
+# Установка библиотек
+pip install 'имя_пакета_без_кавычек'
+
 # Активация (Windows)
 venv\Scripts\activate
 
