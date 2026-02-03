@@ -168,4 +168,14 @@ A: Да, курс рассчитан на студентов, уже изучи�
 
 ---
 
-https://drive.google.com/file/d/1kxu2FU0HZSqmso_8YBB5OsBa79I5U5Vz/view?usp=sharing
+## 💻  Ссылки на семинары
+
+[**Семинар 1**](https://drive.google.com/file/d/1kxu2FU0HZSqmso_8YBB5OsBa79I5U5Vz/view?usp=sharing)
+[**Семинар 2**](https://drive.google.com/file/d/1cA7RdSUMKrv4j9FUewcj5d6o6gBmEic9/view?usp=sharing)
+[**Семинар 3**](https://drive.google.com/file/d/1fpjp9Gyng7QwNWUuCvF-9M3eHdiimApy/view?usp=sharing)
+[**Семинар 4**](https://drive.google.com/file/d/13yEAAbw1gQ7Hg_Y8t_lZSDLF9YLImzk4/view?usp=sharing)
+[**Семинар 5**](https://drive.google.com/file/d/15v0Tluig3vYyaOT10IeMzXRv65R8hZ6m/view?usp=sharing)
+[**Семинар 6**](https://drive.google.com/file/d/1ZcCx0rLb9X-lJhDEaCi8iqL0TW3hff12/view?usp=sharing)
+[**Семинар 7**](https://drive.google.com/file/d/14w_TfKGQIOwWz6GjL32ToqO1GCLGL2ui/view?usp=sharing)
+
+---
