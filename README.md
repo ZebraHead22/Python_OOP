@@ -352,4 +352,3 @@ A: Да, курс рассчитан на студентов, уже изучи�
 [**Семинар 5**](https://drive.google.com/file/d/15v0Tluig3vYyaOT10IeMzXRv65R8hZ6m/view?usp=sharing)  
 [**Семинар 6**](https://drive.google.com/file/d/1ZcCx0rLb9X-lJhDEaCi8iqL0TW3hff12/view?usp=sharing)  
 [**Семинар 7**](https://drive.google.com/file/d/14w_TfKGQIOwWz6GjL32ToqO1GCLGL2ui/view?usp=sharing)
-
