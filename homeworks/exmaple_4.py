@@ -1,5 +1,4 @@
 
-#1 
 # class ShoppingCart:
 
 #     count = 0
@@ -27,16 +26,21 @@
 #         return price    
     
 #     def add_item(self, name, price, item_count):
-#         self.items.append(
-#             {
-#                 "Item" : self.item_name_validate(name),
-#                 "Price" : self.price_validate(price),
-#                 "Count": self.price_validate(item_count)
-#             }
-#         )
-#         self._total += price * item_count
-#         self.__add_count += item_count
-#         print(f"Add new item to cart {self.__id}:\n-Name: {name}\n-Price: {price}\n-Count: {item_count}")
+#         try:
+#             self.items.append(
+#                 {
+#                     "Item" : self.item_name_validate(name),
+#                     "Price" : self.price_validate(price),
+#                     "Count": self.price_validate(item_count)
+#                 }
+#             )
+#             self._total += price * item_count
+#             self.__add_count += item_count
+#             print(f"Add new item to cart {self.__id}:\n-Name: {name}\n-Price: {price}\n-Count: {item_count}")
+#         except Exception as e:
+#             print(f"R u ok?? U have some Error: {e}")
+
+        
 
 #     def get_total(self):
 #         print(f"Total for cart {self.__id}: {self._total}")
@@ -46,37 +50,47 @@
 #         print(f"Shopping cart number: {cls.count}")
 
 # cart_1 = ShoppingCart()
-# cart_2 = ShoppingCart()
-# cart_3 = ShoppingCart()
-# cart_4 = ShoppingCart()
-# cart_5 = ShoppingCart()
+# # cart_2 = ShoppingCart()
+# # cart_3 = ShoppingCart()
+# # cart_4 = ShoppingCart()
+# # cart_5 = ShoppingCart()
 
-# cart_1.add_item("banana", 30, 2)
-# cart_1.add_item("Oil", 50, 4)
+# cart_1.add_item("Bounty Trio", 94, "24")
+# # cart_1.add_item("Oil", 50, 4)
 
-# cart_2.add_item("potato", 5, 10)
-# cart_2.add_item("cucumber", 500000, 1)
+# # cart_2.add_item("potato", 5, 10)
+# # cart_2.add_item("cucumber", 500000, 1)
 # print()
 # cart_1.get_total()
-# print()
-# cart_2.get_total()
-# print()
-# ShoppingCart.get_count()
+# # print()
+# # cart_2.get_total()
+# # print()
+# # ShoppingCart.get_count()
 
-# print(cart_1.items)
+# # print(cart_1.items)
 
 
 class BankAccount:
 
     accounts = 0
 
-    def __init__(self, owner):
+    def __init__(self, owner, phone_number):
         self._balance = 0
         BankAccount.accounts += 1
         self.__id = BankAccount.accounts
         self.owner = self.owner_val(owner)
-        print(f"Create new bank account:\n-Owner is {self.owner}\n-ID = {self.__id}\n-Balance = {self._balance}")
+        self.phone_number = "+7" + str(self.phone_number_val(phone_number))
+        print(f"Create new bank account:\n-Owner is {self.owner}\n-ID = {self.__id}\n-Balance = {self._balance}\n-Phone: {self.phone_number}")
+        print("---")
 
+    @staticmethod
+    def phone_number_val(phone_number):
+        if not isinstance(phone_number, int):
+            raise TypeError("Phone_number must be str!")
+        if not len(str(phone_number)) == 10:
+            raise ValueError("Phone_number shoud contain all digits...")
+        return phone_number 
+    
     @staticmethod
     def owner_val(name):
         if not isinstance(name, str):
@@ -96,28 +110,32 @@ class BankAccount:
     @property
     def balance(self):
         return self._balance
+
+    @balance.deleter
+    def balance(self):
+        self._balance = None
+        self.owner = None
+        print(f"Delete account:\n Name: {self.owner}\nBalance: {self._balance}")
+
     
     def deposit(self, amount):
-        try:
-            self._balance += self.amount_val(amount)
-        except Exception as e:
-            print(f"Error: {e}")
+        self._balance += self.amount_val(amount)
         print(f"New balance of {self.owner} is {self._balance}")
 
 
     def withdraw(self, amount):
-        try:
-            if self.amount_val(amount) > self._balance:
-                raise ValueError("Balance must be more than amount!")
-            self._balance -= self.amount_val(amount)
-        except Exception as e:
-            print(f"Error: {e}")
+        if self.amount_val(amount) > self._balance:
+            raise ValueError("Balance must be more than amount!")
+        self._balance -= self.amount_val(amount)
         print(f"New balance of {self.owner} is {self._balance}")
 
 
-acc = BankAccount("Sergeev Maksim Andreevich")
-acc.deposit(113000)
-acc.withdraw(176000)
-acc.balance
+try:
+    acc = BankAccount("Dasha Sergeeva", 9112230951)
+    acc.deposit(1231445)
+    acc.withdraw(456)
+
+except Exception as e:
+    print(f"EEEERRRROOOOOOOOOOOOOOR: {e}")
     
         
