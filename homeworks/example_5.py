@@ -81,29 +81,65 @@
 # c.display_info()
 
 
-class Writer:
-    def create(self):
-        return "Writing a novel"
+# class Writer:
+#     def create(self):
+#         return "Writing a novel"
 
-class Painter:
-    def create(self):
-        return "Painting a picture"
+# class Painter:
+#     def create(self):
+#         return "Painting a picture"
 
-class Musician:
-    def create(self):
-        return "Composing a song"
+# class Musician:
+#     def create(self):
+#         return "Composing a song"
 
-def show_creativity(person):
-    # Вызываем метод create, если он существует (утиная типизация)
-    print(person.create())
+# def show_creativity(person):
+#     # Вызываем метод create, если он существует (утиная типизация)
+#     print(person.create())
 
-# Демонстрация утиной типизации
+# # Демонстрация утиной типизации
+# if __name__ == "__main__":
+#     writer = Writer()
+#     painter = Painter()
+#     musician = Musician()
+
+#     # Все объекты имеют метод create, поэтому функция работает с каждым
+#     show_creativity(writer)   # Writing a novel
+#     show_creativity(painter)  # Painting a picture
+#     show_creativity(musician) # Composing a song
+
+
+class Engine:
+    """Класс, представляющий двигатель."""
+    def __init__(self, power):
+        self.power = power
+
+    def start(self):
+        return "Engine started"
+
+
+class Car:
+    """Класс автомобиля, использующий композицию с двигателем."""
+    def __init__(self, engine_power):
+        # Композиция: автомобиль создаёт свой двигатель и управляет его временем жизни
+        self.engine = Engine(engine_power)
+
+    def start_car(self):
+        # Запуск автомобиля делегируется двигателю
+        return self.engine.start()
+
+
+class ElectricCar(Car):
+    """Электромобиль, наследующий от Car и переопределяющий запуск."""
+    def start_car(self):
+        # Полностью изменяем поведение запуска
+        return "Electric motor activated"
+
+
+# Пример использования
 if __name__ == "__main__":
-    writer = Writer()
-    painter = Painter()
-    musician = Musician()
+    regular_car = Car(150)
+    print(regular_car.start_car())  # Engine started
 
-    # Все объекты имеют метод create, поэтому функция работает с каждым
-    show_creativity(writer)   # Writing a novel
-    show_creativity(painter)  # Painting a picture
-    show_creativity(musician) # Composing a song
+    tesla = ElectricCar(300)
+    print(tesla.start_car())         # Electric motor activated
