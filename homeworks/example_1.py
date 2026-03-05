@@ -3,7 +3,7 @@ import statistics
 #     """
 #     Convert Celsius temperature to fahrenheit temperature
 
-#     :param celsius: Convert Celsius 
+#     :param celsius: Convert Celsius
 #     :type celsius: float
 #     :return: Fahrenheit temperature
 #     :rtype: float
@@ -20,32 +20,33 @@ import statistics
 # convert_temperature(40, 'K', 'C')
 
 
-def analyze_text(text : str) -> dict:
-    
+def analyze_text(text: str) -> dict:
+
     # my_dict = dict()
     # words = text.split()
     # word_count = len(words)
     # my_dict['word_count'] = word_count
     # a = 0
     # longest_word = ''
-    # for i in words: 
+    # for i in words:
     #     if len(i) > a:
     #         a = len(i)
     #         longest_word = i
     # my_dict['longest_word'] = longest_word
     # b = 0
-    # for i in words: 
+    # for i in words:
     #     b += len(i)
-    # average_word_length = b/word_count 
+    # average_word_length = b/word_count
     # my_dict['average_word_length'] = average_word_length
     # return my_dict
 
     return {
-        'word_count' : len(text.split()),
-        'longest_word' : max(text.split(), key=len),
-        'average_word_length' : sum([len(i) for i in text.split()])/len(text.split())
+        'word_count': len(text.split()),
+        'longest_word': max(text.split(), key=len),
+        'average_word_length': sum([len(i) for i in text.split()])/len(text.split())
     }
 
 
-result = analyze_text('Для создания заявки на конкурс в качестве руководителя следует')
+result = analyze_text(
+    'Для создания заявки на конкурс в качестве руководителя следует')
 print(result)
