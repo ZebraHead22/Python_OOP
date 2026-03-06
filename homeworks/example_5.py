@@ -141,6 +141,7 @@ class ElectricCar(Car):
 if __name__ == "__main__":
     regular_car = Car(150)
     print(regular_car.start_car())  # Engine started
+    print(regular_car.engine.power)
 
     tesla = ElectricCar(300)
     print(tesla.start_car())         # Electric motor activated
