@@ -92,3 +92,92 @@ try:
     c = MyClass(2)
 except RuntimeError as e:
     print(f"Ошибка: {e}")
+    
+    
+    
+    class Worker:
+    """
+    Простой класс Worker, демонстрирующий использование __new__.
+    """
+    _instance_counter = 0
+
+    def __new__(cls, *args, **kwargs):
+        """
+        Переопределённый __new__ для отслеживания создания экземпляров.
+        """
+        instance = super().__new__(cls)
+        cls._instance_counter += 1
+        instance._id = cls._instance_counter
+        print(f"Создан Worker #{instance._id}")
+        return instance
+
+    def __init__(self):
+        # Состояние Worker'а (может быть сброшено при возврате в пул)
+        self._busy = False
+
+    def reset(self):
+        """Сброс состояния Worker'а перед повторным использованием."""
+        self._busy = False
+        print(f"Worker #{self._id} сброшен")
+
+    def __repr__(self):
+        return f"<Worker #{self._id}>"
+
+
+class Pool:
+    """
+    Пул объектов Worker с ограниченным размером.
+    """
+    def __init__(self, max_size):
+        self.max_size = max_size
+        self._available = []      # список свободных Worker'ов
+        self._created_count = 0   # общее количество созданных Worker'ов
+
+    def get(self):
+        """
+        Возвращает Worker из пула.
+        Если есть свободный – возвращает его.
+        Иначе, если лимит не превышен – создаёт новый Worker.
+        Если лимит достигнут – возвращает None.
+        """
+        if self._available:
+            worker = self._available.pop()
+            print(f"Выдан существующий {worker}")
+            return worker
+
+        if self._created_count < self.max_size:
+            worker = Worker()
+            self._created_count += 1
+            print(f"Выдан новый {worker}")
+            return worker
+
+        print("Пул пуст, лимит достигнут, возвращаем None")
+        return None
+
+    def release(self, worker):
+        """
+        Возвращает Worker обратно в пул.
+        Перед возвратом сбрасывает его состояние (опционально).
+        """
+        if worker is None:
+            return
+        worker.reset()
+        self._available.append(worker)
+        print(f"{worker} возвращён в пул")
+
+
+# Пример использования
+if __name__ == "__main__":
+    pool = Pool(max_size=2)
+
+    w1 = pool.get()   # создаётся новый Worker #1
+    w2 = pool.get()   # создаётся новый Worker #2
+    w3 = pool.get()   # лимит достигнут -> None
+
+    print(f"w1 = {w1}, w2 = {w2}, w3 = {w3}")
+
+    pool.release(w2)  # возвращаем w2 в пул
+    w3 = pool.get()   # теперь получаем w2 снова
+    print(f"w3 после release = {w3}")
+    
+    
