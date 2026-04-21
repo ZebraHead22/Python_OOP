@@ -108,28 +108,150 @@
 # print(x)       # 10
         
 
-class Database:
+# class Database:
 
-    _instance = None
-    call_count = 0
+#     _instance = None
+#     call_count = 0
 
-    def __new__(cls):
-        cls.call_count += 1
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            print("Создано соединение")
-        else:
-            print("Используем существующее")
+#     def __new__(cls):
+#         cls.call_count += 1
+#         if cls._instance is None:
+#             cls._instance = super().__new__(cls)
+#             print("Создано соединение")
+#         else:
+#             print("Используем существующее")
 
-        return cls._instance
+#         return cls._instance
     
-    def __init__(self):
-        if not hasattr(self, "connected"):
-            self.connected = True
+#     def __init__(self):
+#         if not hasattr(self, "connected"):
+#             self.connected = True
 
-db1 = Database()   # Создано соединение
-db2 = Database()   # Используем существующее
-print(db1 is db2)  # True
-print(Database.call_count)  # 2
+# db1 = Database()   # Создано соединение
+# db2 = Database()   # Используем существующее
+# print(db1 is db2)  # True
+# print(Database.call_count)  # 2
 
 
+# class Shape:
+
+#     def __init__(self, color):
+#         if not isinstance(color, str):
+#             raise TypeError("TE!")
+#         self._color = color
+
+#     def get_color(self):
+#         return self._color
+    
+#     def set_color(self, color):
+#         if not isinstance(color, str):
+#             raise TypeError("TE!")
+#         self._color = color
+
+
+# class Circle(Shape):
+
+#     def __init__(self, color, radius):
+#         super().__init__(color)
+#         self.__radius = radius
+
+#     @property
+#     def area(self):
+#         import math
+#         return math.pi * (self.__radius**2)
+    
+#     def __str__(self):
+#         return super().__str__(f"Circle: sraduis = {self.__radius}")
+    
+#     def _protected_method(self):
+#         print("PROTECTED METHOD")
+
+
+# c = Circle("red", 5)
+# print(c.get_color())   # red
+# print(c.area)          # 78.5398...
+# c._protected_method()  # сработает, но IDE предупредит
+# print(c.__radius)    # AttributeError
+
+
+# class AddAttr:
+
+#     def __init__(self, name, value):
+#         self.name = name
+#         self.value = value
+
+#     def __call__(self, cls,  *args, **kwds):
+#         setattr(cls, self.name, self.value)
+#         return cls
+        
+
+
+# @AddAttr("version", 1.0)
+# class MyClass:
+#     pass
+
+# print(MyClass.version)   # 1.0
+
+
+# class Range:
+
+#     def __init__(self, name, min_val=-273.15, max_val=1000):
+#         self.name = name
+#         self.min_val = min_val
+#         self.max_val = max_val
+
+#     def __get__(self, instance, owner):
+#         return instance.__dict__.get(self.name)
+    
+#     def __set__(self, instance, value):
+#         if not self.max_val >= value >= self.min_val:
+#             raise ValueError("VA!")
+        
+#         print("OK")
+#         instance.__dict__[self.name] = value
+
+
+# class Temperature:
+
+#     celsius = Range("celsius")    
+
+# t = Temperature()
+# t.celsius = 25        # OK
+# t.celsius = -300      # ValueError
+
+
+class CachedFunction:
+
+    # __cache = {}
+
+    # def __new__(cls, name):
+    #     if name not in cls.__cache:
+    #         instance = super.__new__(cls)
+    #         cls.__cache[name] = instance
+    #         return cls.__cache[name] if cls.__cache else None
+        
+    #     return cls.__cache[name]
+
+    def __init__(self, func):
+        self.func = func
+        self.cache = {}
+        
+
+    def __call__(self, *args, **kwds):
+        if args not in self.cache:
+            result = self.func(*args, **kwds)
+            self.cache[args] = result
+            return self.cache[args] if self.cache else None
+        
+        return self.cache[args]
+
+
+
+@CachedFunction
+def slow_square(x):
+    import time
+    time.sleep(1)
+    return x * x
+
+print(slow_square(4))   # вычисляем -> 16 (задержка)
+print(slow_square(4))   # из кэша -> 16 (мгновенно)
